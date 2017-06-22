@@ -1,0 +1,278 @@
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  background-color: #fafafa;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  flex: 1 0 0px;
+  position: relative;
+  display: flex;
+}
+
+body, input, button, textarea, select, a {
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  outline: 0;
+}
+
+input, textarea, select {
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 2px solid #e0e0e0; 
+  padding: 8px 0 4px 0;
+  font-size: 16px;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-bottom-color: #ffc400; 
+}
+
+input::placeholder {
+  font-weight: 300;
+  color: rgba(0, 0, 0, .24);
+}
+
+form {
+  flex: 1 0 0px;
+}
+
+button, a.button {
+  border: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: transparent;
+  padding: 8px 16px;
+  transition: box-shadow .4s;
+  cursor: pointer;
+}
+
+button:hover, button:focus, a.button:hover, a.button:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .24);
+}
+
+.button-primary {
+  color: #ffc400;
+}
+
+.fab {
+  width: 56px;
+  height: 56px;
+  background-color: #ffc400;
+  border-radius: 28px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.fab-right {
+  right: 16px;
+}
+
+.fab-overlap-up {
+  top: -28px;
+}
+
+.card {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  background-color: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .24);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  padding: 24px 16px 16px 16px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.login-card {
+  width: 240px;
+  align-self: center;
+}
+
+.login-card .card-art {
+  background-image: url('/img/clock.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 200px;
+  background-color: #b3e5fc;
+}
+
+.app-bar {
+  height: 64px;
+  background-color: #12005e;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.app-bar button {
+  color: inherit;
+}
+
+.app-bar form {
+  flex: 0 0 auto;
+}
+
+.app-bar-title {
+  margin: 0 0 0 72px;
+  font-weight: 300;
+}
+
+.app-bar-spacer {
+  flex: 1 0 0px;
+}
+
+.tabs {
+  background-color: #4a148c;
+  color: white;
+}
+
+.tabs-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.tabs-item {
+  margin: 0;
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  display: flex;
+}
+
+.tabs-item a {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 48px;
+  padding: 0 24px;
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+.tabs-item-selected {
+  border-bottom-color: #ffc400; 
+}
+
+.main-list {
+  flex: 1 0 0px;  
+}
+
+.main-detail {
+  background-color: white;
+  flex: 0 0 256px;
+}
+
+.main-detail-content {
+  padding: 16px 0 0 8px;
+}
+
+.main-detail-headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 144px;
+  background-color: #6746c3;
+  color: white;
+  padding: 0 0 8px 16px;
+  box-sizing: border-box;
+}
+
+.text-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input span {
+  font-size: 11px;
+}
+
+.form-errors {
+  margin-bottom: 16px;
+  color: red;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0 0;
+  flex: 1 0 0px;
+}
+
+.list-item-two-line {
+  height: 72px;
+  display: flex;
+  padding: 0 0 0 16px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.list-primary-content {
+  font-size: 16px;
+}
+
+.list-secondary-content {
+  color: rgba(0, 0, 0, .54);
+}
+
+.data-table {
+  width: 100%;  
+}
+
+.data-table-main-column {
+  text-align: left;
+  width: 100%;
+  padding: 0 28px;
+}
+
+th.data-table-numeric {
+  text-align: center;  
+}
+
+.data-table-numeric {
+  white-space: nowrap;
+  text-align: right;
+  height: 48px;
+  padding: 0 28px;
+}

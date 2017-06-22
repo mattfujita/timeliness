@@ -1,0 +1,24 @@
+logging:
+  level:
+    com: warn
+    org: warn
+
+server:
+  port: 5000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/timely
+    username: timely
+    password: timely
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  main:
+    banner-mode: "off"
+  mustache:
+    expose-request-attributes: true
+  profiles:
+    active: development

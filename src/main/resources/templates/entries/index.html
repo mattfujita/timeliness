@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Timeliness</title>
+  {{> common/head}}
+</head>
+
+<body>
+  <header class="app-bar">
+    <h1 class="app-bar-title">Timely</h1>
+    <div class="app-bar-spacer"></div>
+    <form method="post" action="/logout">
+      <!-- <input type="hidden" value="delete" name="_method"> -->
+      <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+      <button class="button">Sign out</button>
+    </form>
+  </header>
+  <nav class="tabs">
+    <ul class="tabs-list">
+      <li class="tabs-item tabs-item-selected"><a href="/">Entries</a></li>
+      <li class="tabs-item"><a href="/clients">Clients</a></li>
+      <li class="tabs-item"><a href="/report">Report</a></li>
+    </ul>
+  </nav>
+  <main>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="data-table-main-column">Client</th>
+          <th class="data-table-numeric">Start</th>
+          <th class="data-table-numeric">End</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#entries}}
+          <tr>
+            <td class="data-table-main-column">{{ name }}</td>
+            <td class="data-table-numeric">{{ fromTime }}</td>
+            <td class="data-table-numeric">{{#toTime}}{{ toTime }}{{/toTime}}</td>
+          </tr>
+        {{/entries}}
+      </tbody>
+    </table>
+  </main>
+  <script src="/js/angular-1.6.4.min.js"></script>
+  <script src="/js/angular-resource-1.6.4.min.js"></script>
+  <script src="/js/angular-ui-router-1.0.3.min.js"></script>
+</body>
+
+</html>
