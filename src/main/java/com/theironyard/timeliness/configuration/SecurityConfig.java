@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/session/new")
 				.usernameParameter("username")
 				.passwordParameter("password")
-				.loginProcessingUrl("/session/mine");
+				.loginProcessingUrl("/session/mine")
+			.and()
+				.addFilterAfter(new CsrfIntoCookieFilter(), CsrfFilter.class)
+				.csrf()
+				.csrfTokenRepository(tokenRepository());
 	}
 	
 	@Autowired
@@ -46,6 +53,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	public CsrfTokenRepository tokenRepository() {
+		HttpSessionCsrfTokenRepository tokenRepository = new HttpSessionCsrfTokenRepository();
+	    tokenRepository.setHeaderName("X-XSRF-TOKEN");
+	    tokenRepository.setParameterName("_csrf");
+	    
+	    return tokenRepository;
 	}
 	
 }

@@ -121,6 +121,12 @@ public class ReportController {
 			return formatter.format(month);
 		}
 		
+		public String getYear() {
+			Calendar c = Calendar.getInstance();
+			c.setTime(month);
+			return String.valueOf(c.get(Calendar.YEAR));
+		}
+		
 		public Date getMonth() {
 			return month;
 		}
