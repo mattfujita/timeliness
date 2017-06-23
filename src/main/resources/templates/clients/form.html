@@ -28,11 +28,22 @@
     {{> clients/list}}
     <div class="main-detail">
       <div class="main-detail-headline">
+        <div class="main-detail-headline-actions">
+          <a href="/clients"><i class="material-icons">arrow_back</i></a>
+          {{#client.id}}
+            <div class="app-bar-spacer"></div>
+            <form method="post" action="/clients/deactivations">
+              <input type="hidden" name="id" value="{{ id }}">
+              <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+              <button class="button-icon"><i class="material-icons">remove_circle</i></button>
+            </form>
+          {{/client.id}}          
+        </div>
         {{#client.id}}
-        <h1>Edit {{ client.name }}</h1>
+        <h1 class="main-detail-headline-text">Edit {{ client.name }}</h1>
         {{/client.id}}
         {{^client.id}}
-        <h1>Create a client</h1>
+        <h1 class="main-detail-headline-text">Create a client</h1>
         {{/client.id}}
       </div>
       <div class="main-detail-content">
@@ -44,7 +55,7 @@
           {{/client.id}}
           <label class="text-input">
             <span>Client name</span>
-            <input autofocus type="text" placeholder="name" name="name" value="{{ client.name }}">
+            <input autofocus type="text" name="name" value="{{ client.name }}">
           </label>
         </form>
       </div>

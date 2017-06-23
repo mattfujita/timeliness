@@ -38,9 +38,40 @@
           <tr>
             <td class="data-table-main-column">{{ name }}</td>
             <td class="data-table-numeric">{{ fromTime }}</td>
-            <td class="data-table-numeric">{{#toTime}}{{ toTime }}{{/toTime}}</td>
+            {{#toTime}}
+              <td class="data-table-numeric">{{ toTime }}</td>
+            {{/toTime}}
+            {{^toTime}}
+              <td class="data-table-numeric">
+                <form action="post" method="/entries/completions">
+                  <input type="hidden" name="id" value="{{ id }}">
+                  <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+                  <button class="button-primary">Finish</button>
+                </form>
+              </td>
+            {{/toTime}}
           </tr>
         {{/entries}}
+        <tr>
+          <td class="data-table-main-column">
+            <form id="start-new-span" action="post" method="/entries">
+              <div class="drop-down-holder">
+                <div class="drop-down-decorator">
+                  <i class="material-icons">arrow_drop_down</i>
+                </div>
+                <select class="full-width" name="clientId" id="clientId">
+                  <option value=""></option>
+                  {{#clients}}
+                    <option value="{{ id }}">{{ name }}</option>
+                  {{/clients}}
+                </select>
+              </div>
+            </form>
+          </td>
+          <td class="data-table-numeric">
+            <button form="start-new-span" class="button-cta">Start new</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </main>

@@ -40,11 +40,20 @@ body, input, button, textarea, select, a {
 }
 
 input, textarea, select {
+  background-color: transparent;
   box-sizing: border-box;
   border: 0;
   border-bottom: 2px solid #e0e0e0; 
   padding: 8px 0 4px 0;
   font-size: 16px;
+  height: 56px;
+  margin-bottom: 8px;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 0px; 
 }
 
 input:focus, textarea:focus, select:focus {
@@ -75,7 +84,17 @@ button:hover, button:focus, a.button:hover, a.button:focus {
 }
 
 .button-primary {
-  color: #ffc400;
+  color: #ffab00;
+}
+
+.button-cta {
+  background-color: #ffc400;
+  color: black;
+}
+
+.button-icon {
+  color: inherit;
+  padding: 0;
 }
 
 .fab {
@@ -134,6 +153,10 @@ button:hover, button:focus, a.button:hover, a.button:focus {
   background-repeat: no-repeat;
   height: 200px;
   background-color: #b3e5fc;
+}
+
+.error-message {
+  margin-top: 8px;
 }
 
 .app-bar {
@@ -201,7 +224,7 @@ button:hover, button:focus, a.button:hover, a.button:focus {
 
 .main-detail {
   background-color: white;
-  flex: 0 0 256px;
+  flex: 0 0 280px;
 }
 
 .main-detail-content {
@@ -211,12 +234,43 @@ button:hover, button:focus, a.button:hover, a.button:focus {
 .main-detail-headline {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   height: 144px;
   background-color: #6746c3;
   color: white;
-  padding: 0 0 8px 16px;
+  padding: 0 16px 8px 16px;
   box-sizing: border-box;
+}
+
+.main-detail-headline-actions {
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+}
+
+.main-detail-headline-actions form {
+  flex: none;
+}
+
+.main-detail-headline-text {
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.drop-down-holder {
+  position: relative;
+}
+
+.drop-down-decorator {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  z-index: -1;
 }
 
 .text-input {
@@ -226,6 +280,10 @@ button:hover, button:focus, a.button:hover, a.button:focus {
 
 .text-input span {
   font-size: 11px;
+}
+
+.text-input input {
+  padding-top: 0;
 }
 
 .form-errors {

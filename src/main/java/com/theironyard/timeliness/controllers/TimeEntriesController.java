@@ -1,6 +1,7 @@
 package com.theironyard.timeliness.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.theironyard.timeliness.domain.Client;
+import com.theironyard.timeliness.domain.ClientRepository;
 import com.theironyard.timeliness.domain.TimeWatcher;
 import com.theironyard.timeliness.domain.TimeWatcherRepository;
 import com.theironyard.timeliness.domain.WorkSpan;
@@ -22,10 +25,12 @@ public class TimeEntriesController {
 
 	private WorkSpanRepository spans;
 	private TimeWatcherRepository watchers;
+	private ClientRepository clients;
 
-	public TimeEntriesController(WorkSpanRepository spans, TimeWatcherRepository watchers) {
+	public TimeEntriesController(WorkSpanRepository spans, TimeWatcherRepository watchers, ClientRepository clients) {
 		this.spans = spans;
 		this.watchers = watchers;
+		this.clients = clients;
 	}
 	
 	@GetMapping("")
@@ -33,10 +38,16 @@ public class TimeEntriesController {
 		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
 		watcher = watchers.findOne(watcher.getId());
 		
-		List<WorkSpanViewModel> models = spans.findAllByWatcherOrderByFromTime(watcher)
+		Calendar c = Calendar.getInstance();
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 0, 0, 0);
+		List<WorkSpanViewModel> models = spans.findAllByWatcherAndFromTimeGreaterThanOrderByFromTime(watcher, c.getTime())
 				.stream()
 				.map(span -> new WorkSpanViewModel(span))
 				.collect(Collectors.toList());
+		
+		List<Client> activeClients = clients.findAllActive();
+		
+		model.addAttribute("clients", activeClients);
 		model.addAttribute("entries", models);
 		model.addAttribute("user", auth.getPrincipal());
 		return "entries/index";
@@ -50,6 +61,10 @@ public class TimeEntriesController {
 			this.span = span;
 		}
 		
+		public Long getId() {
+			return span.getId();
+		}
+		
 		public String getName() {
 			return span.getClient().getName();
 		}
@@ -61,7 +76,7 @@ public class TimeEntriesController {
 		
 		public String getToTime() {
 			Date to = span.getToTime();
-			if (to == null) return "";
+			if (to == null) return null;
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("h:mm a");
 			return formatter.format(span.getToTime());

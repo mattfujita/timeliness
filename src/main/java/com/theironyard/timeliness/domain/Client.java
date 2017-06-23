@@ -29,6 +29,7 @@ public class Client {
 	}
 	
 	public Client(String name, TimeWatcher watcher) {
+		this();
 		this.name = name;
 		this.watcher = watcher;
 	}
