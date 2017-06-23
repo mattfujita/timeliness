@@ -74,21 +74,27 @@ public class ReportController {
 	}
 	
 	private Collection<MonthWorkViewModel> calculateReport(Client client) {
-		Map<Date, MonthWorkViewModel> entriesMap = new HashMap<Date, MonthWorkViewModel>();
+		Map<String, MonthWorkViewModel> entriesMap = new HashMap<String, MonthWorkViewModel>();
 		
 		List<WorkSpan> work = spans.findAllByClient(client);
 		for (WorkSpan span : work) {
 			Date monthified = monthify(span.getFromTime());
-			if (!entriesMap.containsKey(monthified)) {
-				entriesMap.put(monthified, new MonthWorkViewModel(monthified));
+			String key = stringifiedMonth(span.getFromTime());
+			if (!entriesMap.containsKey(key)) {
+				entriesMap.put(key, new MonthWorkViewModel(monthified));
 			}
-			MonthWorkViewModel model = entriesMap.get(monthified);
+			MonthWorkViewModel model = entriesMap.get(key);
 			model.add(span);
 		}
 		
 		List<MonthWorkViewModel> entries = new ArrayList<MonthWorkViewModel>(entriesMap.values());
 		Collections.sort(entries, (left, right) -> left.getMonth().compareTo(right.getMonth()));
 		return entries;
+	}
+	
+	private static String stringifiedMonth(Date date) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
+		return formatter.format(date);
 	}
 	
 	private static Date monthify(Date date) {
