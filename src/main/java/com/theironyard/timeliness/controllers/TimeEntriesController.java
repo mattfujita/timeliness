@@ -10,24 +10,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.theironyard.timeliness.domain.Client;
 import com.theironyard.timeliness.domain.ClientRepository;
 import com.theironyard.timeliness.domain.TimeWatcher;
 import com.theironyard.timeliness.domain.TimeWatcherRepository;
 import com.theironyard.timeliness.domain.WorkSpan;
-import com.theironyard.timeliness.domain.WorkSpanRepository;
+import com.theironyard.timeliness.domain.WorkSpanContext;
 
 @Controller
 @RequestMapping({"/entries", "/"})
 public class TimeEntriesController {
 
-	private WorkSpanRepository spans;
+	private WorkSpanContext spans;
 	private TimeWatcherRepository watchers;
 	private ClientRepository clients;
 
-	public TimeEntriesController(WorkSpanRepository spans, TimeWatcherRepository watchers, ClientRepository clients) {
+	public TimeEntriesController(WorkSpanContext spans, TimeWatcherRepository watchers, ClientRepository clients) {
 		this.spans = spans;
 		this.watchers = watchers;
 		this.clients = clients;
@@ -40,7 +40,10 @@ public class TimeEntriesController {
 		
 		Calendar c = Calendar.getInstance();
 		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 0, 0, 0);
-		List<WorkSpanViewModel> models = spans.findAllByWatcherAndFromTimeGreaterThanOrderByFromTime(watcher, c.getTime())
+		Date fromTime = c.getTime();
+		c.add(Calendar.DATE, 1);
+		Date toTime = c.getTime();
+		List<WorkSpanViewModel> models = spans.findAllByWatcherAndFromTimeGreaterThanAndToTimeLessThanOrderByFromTime(watcher, fromTime, toTime)
 				.stream()
 				.map(span -> new WorkSpanViewModel(span))
 				.collect(Collectors.toList());
@@ -51,6 +54,20 @@ public class TimeEntriesController {
 		model.addAttribute("entries", models);
 		model.addAttribute("user", auth.getPrincipal());
 		return "entries/index";
+	}
+	
+	@PostMapping("/completions")
+	public String completeWorkSpan(Authentication auth, WorkSpan span) {
+		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
+		spans.complete(watcher, span);
+		return "redirect:/entries";
+	}
+	
+	@PostMapping("")
+	public String startWorkSpan(Authentication auth, WorkSpan span) {
+		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
+		spans.completeOpenAndCreateNew(watcher, span);
+		return "redirect:/entries";
 	}
 	
 	static class WorkSpanViewModel {

@@ -12,7 +12,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
 	public List<Client> findAllByWatcher(TimeWatcher watcher, Sort sort);
 	
-	@Query("from Client c order by c.name")
+	@Query("from Client c where c.isActive = true order by c.name")
 	public List<Client> findAllActive();
 	
 }

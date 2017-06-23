@@ -1,5 +1,6 @@
 package com.theironyard.timeliness.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -71,6 +72,10 @@ public class WorkSpan {
 
 	public void setToTime(Date toTime) {
 		this.toTime = toTime;
+	}
+
+	public void complete() {
+		setToTime(Calendar.getInstance().getTime());
 	}
 	
 }

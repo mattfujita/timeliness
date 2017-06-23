@@ -77,6 +77,22 @@ public class ClientsController {
 		clients.save(client);
 		return "redirect:/clients";
 	}
+	
+	@PostMapping("/deactivations")
+	public String deactivateClient(Client client, Model model) {
+		client = clients.findOne(client.getId());
+		client.deactivate();
+		clients.save(client);
+		return "redirect:/clients/" + client.getId();
+	}
+	
+	@PostMapping("/activations")
+	public String activateClient(Client client, Model model) {
+		client = clients.findOne(client.getId());
+		client.activate();
+		clients.save(client);
+		return "redirect:/clients/" + client.getId();
+	}
 
 	private List<Client> getWatcherClients(Authentication auth) {
 		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();

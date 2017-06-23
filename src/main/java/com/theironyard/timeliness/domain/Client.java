@@ -66,4 +66,12 @@ public class Client {
 		this.isActive = isActive;
 	}
 
+	public void deactivate() {
+		setIsActive(false);
+	}
+
+	public void activate() {
+		setIsActive(true);
+	}
+
 }

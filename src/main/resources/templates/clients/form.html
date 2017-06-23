@@ -32,11 +32,20 @@
           <a href="/clients"><i class="material-icons">arrow_back</i></a>
           {{#client.id}}
             <div class="app-bar-spacer"></div>
-            <form method="post" action="/clients/deactivations">
-              <input type="hidden" name="id" value="{{ id }}">
-              <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
-              <button class="button-icon"><i class="material-icons">remove_circle</i></button>
-            </form>
+            {{#client.isActive}}
+              <form method="post" action="/clients/deactivations">
+                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+                <button class="button-icon"><i class="material-icons">remove_circle</i></button>
+              </form>
+            {{/client.isActive}}
+            {{^client.isActive}}
+              <form method="post" action="/clients/activations">
+                <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+                <button class="button-icon"><i class="material-icons">check_circle</i></button>
+              </form>
+            {{/client.isActive}}
           {{/client.id}}          
         </div>
         {{#client.id}}
