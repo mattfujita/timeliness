@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface WorkSpanRepository extends JpaRepository<WorkSpan, Long> {
 
 	public List<WorkSpan> findAllByWatcherAndFromTimeGreaterThanAndFromTimeLessThanOrderByFromTime(TimeWatcher watcher, Date fromTime, Date toTime);
+	public List<WorkSpan> findAllByClient(Client client);
 	
 	@Query("from WorkSpan s where s.watcher = ?1 and s.toTime is null")
 	public WorkSpan findIncompleteByWatcher(TimeWatcher watcher); 

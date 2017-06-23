@@ -25,58 +25,63 @@
     </ul>
   </nav>
   <main>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th class="data-table-main-column">Client</th>
-          <th class="data-table-numeric">Start</th>
-          <th class="data-table-numeric">End</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#entries}}
+    {{^showSomething}}
+      <h1 class="standalone-message">You must first have some active clients.</h1>
+    {{/showSomething}}
+    {{#showSomething}}
+      <table class="data-table">
+        <thead>
           <tr>
-            <td class="data-table-main-column">{{ name }}</td>
-            <td class="data-table-numeric">{{ fromTime }}</td>
-            {{#toTime}}
-              <td class="data-table-numeric">{{ toTime }}</td>
-            {{/toTime}}
-            {{^toTime}}
-              <td class="data-table-numeric">
-                <form method="post" action="/entries/completions">
-                  <input type="hidden" name="id" value="{{ id }}">
-                  <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
-                  <button class="button-primary">Finish</button>
-                </form>
-              </td>
-            {{/toTime}}
+            <th class="data-table-main-column">Client</th>
+            <th class="data-table-numeric">Start</th>
+            <th class="data-table-numeric">End</th>
           </tr>
-        {{/entries}}
-        {{^clients.isEmpty}}
-        <tr>
-          <td class="data-table-main-column">
-            <form id="start-new-span" method="post" action="/entries">
-              <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
-              <div class="drop-down-holder">
-                <div class="drop-down-decorator">
-                  <i class="material-icons">arrow_drop_down</i>
+        </thead>
+        <tbody>
+          {{#entries}}
+            <tr>
+              <td class="data-table-main-column">{{ name }}</td>
+              <td class="data-table-numeric">{{ fromTime }}</td>
+              {{#toTime}}
+                <td class="data-table-numeric">{{ toTime }}</td>
+              {{/toTime}}
+              {{^toTime}}
+                <td class="data-table-numeric">
+                  <form method="post" action="/entries/completions">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+                    <button class="button-primary">Finish</button>
+                  </form>
+                </td>
+              {{/toTime}}
+            </tr>
+          {{/entries}}
+          {{^clients.isEmpty}}
+          <tr>
+            <td class="data-table-main-column">
+              <form id="start-new-span" method="post" action="/entries">
+                <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+                <div class="drop-down-holder">
+                  <div class="drop-down-decorator">
+                    <i class="material-icons">arrow_drop_down</i>
+                  </div>
+                  <select class="full-width" name="client.id" id="clientId" required>
+                    <option value=""></option>
+                    {{#clients}}
+                      <option value="{{ id }}">{{ name }}</option>
+                    {{/clients}}
+                  </select>
                 </div>
-                <select class="full-width" name="client.id" id="clientId" required>
-                  <option value=""></option>
-                  {{#clients}}
-                    <option value="{{ id }}">{{ name }}</option>
-                  {{/clients}}
-                </select>
-              </div>
-            </form>
-          </td>
-          <td class="data-table-numeric">
-            <button form="start-new-span" class="button-cta">Start</button>
-          </td>
-        </tr>
-        {{/clients.isEmpty}}
-      </tbody>
-    </table>
+              </form>
+            </td>
+            <td class="data-table-numeric">
+              <button form="start-new-span" class="button-cta">Start</button>
+            </td>
+          </tr>
+          {{/clients.isEmpty}}
+        </tbody>
+      </table>
+    {{/showSomething}}
   </main>
   <script src="/js/angular-1.6.4.min.js"></script>
   <script src="/js/angular-resource-1.6.4.min.js"></script>

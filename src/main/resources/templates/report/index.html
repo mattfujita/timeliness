@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Timeliness</title>
+  {{> common/head}}
+</head>
+
+<body>
+  <header class="app-bar">
+    <h1 class="app-bar-title">Timely</h1>
+    <div class="app-bar-spacer"></div>
+    <form method="post" action="/logout">
+      <!-- <input type="hidden" value="delete" name="_method"> -->
+      <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+      <button class="button">Sign out</button>
+    </form>
+  </header>
+  <nav class="tabs">
+    <ul class="tabs-list">
+      <li class="tabs-item"><a href="/">Today's Work</a></li>
+      <li class="tabs-item"><a href="/clients">Clients</a></li>
+      <li class="tabs-item tabs-item-selected"><a href="/report">Report</a></li>
+    </ul>
+  </nav>
+  <main>
+    <div class="report-container">
+      {{#clients.isEmpty}}
+        <h1 class="standalone-message">You must first create some clients.</h1>
+      {{/clients.isEmpty}}
+      {{^clients.isEmpty}}
+        <div>
+          <form method="post" action="/report">
+            <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
+            <div class="single-row-chooser">
+              <div class="drop-down-holder single-row-chooser-main">
+                <div class="drop-down-decorator">
+                  <i class="material-icons">arrow_drop_down</i>
+                </div>
+                <select class="full-width" name="id" id="clientId" required>
+                  <option value=""></option>
+                  {{#clients}}
+                    {{#isSelected}}
+                      <option value="{{ id }}" selected>{{ name }}</option>
+                    {{/isSelected}}
+                    {{^isSelected}}
+                      <option value="{{ id }}">{{ name }}</option>
+                    {{/isSelected}}
+                  {{/clients}}
+                </select>
+              </div>
+              <button class="button-cta">Generate report</button>
+            </div>
+          </form>
+        </div>
+        {{^report.isEmpty}}
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="data-table-main-column">Month</th>
+                <th class="data-table-numeric">Hours worked</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#report}}
+                <tr>
+                  <td class="data-table-main-column">{{ monthName }}</td>
+                  <td class="data-table-numeric">{{ numberOfHoursWorked }}</td>
+                </tr>
+              {{/report}}
+            </tbody>
+          </table>
+        {{/report.isEmpty}}
+      {{/clients.isEmpty}}
+    </div>
+  </main>
+  <script src="/js/angular-1.6.4.min.js"></script>
+  <script src="/js/angular-resource-1.6.4.min.js"></script>
+  <script src="/js/angular-ui-router-1.0.3.min.js"></script>
+</body>
+
+</html>

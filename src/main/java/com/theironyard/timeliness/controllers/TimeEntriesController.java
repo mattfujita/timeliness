@@ -48,10 +48,11 @@ public class TimeEntriesController {
 				.map(span -> new WorkSpanViewModel(span))
 				.collect(Collectors.toList());
 		
-		List<Client> activeClients = clients.findAllActive();
+		List<Client> activeClients = clients.findAllActiveByWatcher(watcher);
 		
 		model.addAttribute("clients", activeClients);
 		model.addAttribute("entries", models);
+		model.addAttribute("showSomething", models.size() > 0 || activeClients.size() > 0);
 		model.addAttribute("user", auth.getPrincipal());
 		return "entries/index";
 	}

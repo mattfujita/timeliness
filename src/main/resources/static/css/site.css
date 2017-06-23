@@ -336,3 +336,32 @@ th.data-table-numeric {
   padding: 0 28px;
   width: 74px;
 }
+
+.standalone-message {
+  padding: 16px 8px;
+}
+
+.single-row-chooser {
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+}
+
+.single-row-chooser > .single-row-chooser-main {
+  flex: 1 0 0px;
+}
+
+.single-row-chooser > * {
+  margin-left: 8px;
+}
+
+.single-row-chooser > *:first-child {
+  margin-left: 0;
+}
+
+.report-container {
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
