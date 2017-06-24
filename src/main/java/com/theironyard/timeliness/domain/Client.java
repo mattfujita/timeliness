@@ -8,6 +8,9 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class Client {
 
@@ -18,6 +21,7 @@ public class Client {
 	@NotEmpty
 	private String name;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	private TimeWatcher watcher;
 	

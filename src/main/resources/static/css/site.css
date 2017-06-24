@@ -83,6 +83,11 @@ button:hover, button:focus, a.button:hover, a.button:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, .24);
 }
 
+button[disabled]:hover,
+button[disabled]:focus {
+  box-shadow: none;
+}
+
 .button-primary {
   color: #ffab00;
 }
@@ -95,6 +100,11 @@ button:hover, button:focus, a.button:hover, a.button:focus {
 .button-icon {
   color: inherit;
   padding: 0;
+}
+
+button[disabled] {
+  color: #CCC;
+  cursor: default;
 }
 
 .fab {
@@ -141,7 +151,7 @@ button:hover, button:focus, a.button:hover, a.button:focus {
   padding: 8px;
 }
 
-.login-card {
+login-page, sign-up-card, .login-card {
   width: 240px;
   align-self: center;
 }
@@ -364,4 +374,11 @@ th.data-table-numeric {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.full-sized {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
 }

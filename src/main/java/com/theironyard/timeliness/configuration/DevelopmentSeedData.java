@@ -42,28 +42,37 @@ public class DevelopmentSeedData {
 		
 		Calendar c = Calendar.getInstance();
 		
-		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 10, 0, 0);
+		for (int j = 0; j < 5; j += 1) {
+			for (int i = 0; i < 10; i += 1) {
+				c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 10, 0, 0);
 
-		WorkSpan span = new WorkSpan(maria, zanzibar, c.getTime());
-		c.add(Calendar.MINUTE, 52);
-		span.setToTime(c.getTime());
-		workSpans.save(span);
-		
-		c.add(Calendar.MINUTE, 12);
-		span = new WorkSpan(maria, allies, c.getTime());
-		c.add(Calendar.MINUTE, 49);
-		span.setToTime(c.getTime());
-		workSpans.save(span);
-		
-		c.add(Calendar.MINUTE, 57);
-		span = new WorkSpan(maria, zanzibar, c.getTime());
-		c.add(Calendar.MINUTE, 12);
-		span.setToTime(c.getTime());
-		workSpans.save(span);
+				WorkSpan span = new WorkSpan(maria, zanzibar, c.getTime());
+				c.add(Calendar.MINUTE, 52 + j * i);
+				span.setToTime(c.getTime());
+				workSpans.save(span);
+				
+				c.add(Calendar.MINUTE, 12 + j * i);
+				span = new WorkSpan(maria, allies, c.getTime());
+				c.add(Calendar.MINUTE, 49);
+				span.setToTime(c.getTime());
+				workSpans.save(span);
+				
+				c.add(Calendar.MINUTE, 57 + j * i);
+				span = new WorkSpan(maria, zanzibar, c.getTime());
+				c.add(Calendar.MINUTE, 12);
+				span.setToTime(c.getTime());
+				workSpans.save(span);
 
-		c.add(Calendar.MINUTE, 4);
-		span = new WorkSpan(maria, brets, c.getTime());
-		workSpans.save(span);
+				if (i == 0 && j == 0) {
+					c.add(Calendar.MINUTE, 4 + j * i);
+					span = new WorkSpan(maria, brets, c.getTime());
+					workSpans.save(span);
+				}
+				
+				c.add(Calendar.DATE, -1);
+			}
+			c.add(Calendar.MONTH, -1);
+		}
 	}
 	
 }

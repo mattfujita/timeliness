@@ -9,16 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.theironyard.timeliness.domain.Client;
 import com.theironyard.timeliness.domain.ClientRepository;
@@ -27,50 +25,30 @@ import com.theironyard.timeliness.domain.TimeWatcherRepository;
 import com.theironyard.timeliness.domain.WorkSpan;
 import com.theironyard.timeliness.domain.WorkSpanRepository;
 
-@Controller
-@RequestMapping("/report")
-public class ReportController {
+@RestController
+@RequestMapping("/api/report")
+public class ReportApiController {
 	
-	private ClientRepository clients;
 	private TimeWatcherRepository watchers;
 	private WorkSpanRepository spans;
+	private ClientRepository clients; 
 
-	public ReportController(ClientRepository clients, TimeWatcherRepository watchers, WorkSpanRepository spans) {
-		this.clients = clients;
+	public ReportApiController(ClientRepository clients, TimeWatcherRepository watchers, WorkSpanRepository spans) {
 		this.watchers = watchers;
 		this.spans = spans;
-	}
-
-	@GetMapping("")
-	public String showReport(Authentication auth, Model model) {
-		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
-		watcher = watchers.findOne(watcher.getId());
-		List<Client> watcherClients = clients.findAllByWatcher(watcher, new Sort(new Order("name")));
-		model.addAttribute("clients", watcherClients);
-		model.addAttribute("report", new ArrayList<String>());
-		return "report/index";
+		this.clients = clients;
 	}
 	
 	@PostMapping("")
-	public String generateReport(Authentication auth, Client client, Model model) {
+	public Collection<MonthWorkViewModel> generateReport(Authentication auth, @RequestBody Client client, HttpServletResponse response) {
 		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
 		watcher = watchers.findOne(watcher.getId());
-		Client realClient = clients.findOneByIdAndWatcher(client.getId(), watcher);
-		List<ClientViewModel> watcherClients = clients.findAllByWatcher(watcher, new Sort(new Order("name")))
-				.stream()
-				.map(c -> new ClientViewModel(c, client.getId()))
-				.collect(Collectors.toList());
-		
-
-		Collection<MonthWorkViewModel> report = new ArrayList<MonthWorkViewModel>();
-		if (realClient != null) {
-			report = calculateReport(realClient);
+		client = clients.findOneByIdAndWatcher(client.getId(), watcher);
+		if (client != null) {
+			return calculateReport(client);
 		}
-
-		model.addAttribute("clients", watcherClients);
-		model.addAttribute("clientId", client.getId());
-		model.addAttribute("report", report);
-		return "report/index";
+		response.setStatus(404);
+		return null;
 	}
 	
 	private Collection<MonthWorkViewModel> calculateReport(Client client) {
@@ -102,29 +80,6 @@ public class ReportController {
 		c.setTime(date);
 		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), 1, 0, 0);
 		return c.getTime();
-	}
-	
-	static class ClientViewModel {
-		
-		private Client client;
-		private boolean isSelected;
-		
-		public ClientViewModel(Client client, Long activeClientId) {
-			this.client = client;
-			this.isSelected = client.getId() == activeClientId;
-		}
-		
-		public Long getId() {
-			return client.getId();
-		}
-		
-		public String getName() {
-			return client.getName();
-		}
-		
-		public boolean getIsSelected() {
-			return isSelected;
-		}
 	}
 	
 }

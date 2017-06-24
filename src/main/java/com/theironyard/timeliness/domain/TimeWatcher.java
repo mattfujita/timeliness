@@ -13,6 +13,9 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class TimeWatcher {
 	
@@ -24,8 +27,9 @@ public class TimeWatcher {
 	@Column(unique=true)
 	private String username;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String encryptedPassword;
-	
+
 	@Transient
 	private String password;
 	

@@ -6,10 +6,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,21 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.theironyard.timeliness.domain.TimeWatcher;
-import com.theironyard.timeliness.domain.TimeWatcherDetailsService;
-import com.theironyard.timeliness.domain.TimeWatcherRepository;
+import com.theironyard.timeliness.domain.TimeWatcherService;
 
 @Controller
 @RequestMapping("/users")
 public class UsersController {
 	
-	private TimeWatcherDetailsService watcherDetails;
-	private TimeWatcherRepository watchers;
-	private PasswordEncoder encoder;
+	private TimeWatcherService watchers;
 	
-	public UsersController(TimeWatcherRepository watchers, TimeWatcherDetailsService watcherDetails, PasswordEncoder encoder) {
-		this.watcherDetails = watcherDetails;
+	public UsersController(TimeWatcherService watchers) {
 		this.watchers = watchers;
-		this.encoder = encoder;
 	}
 
 	@GetMapping("/new")
@@ -47,19 +39,13 @@ public class UsersController {
 	@PostMapping("")
 	public String handleForm(@ModelAttribute("watcher") @Valid TimeWatcher watcher, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			watcher.setEncryptedPassword(encoder.encode(watcher.getPassword()));
-			
 			try {
-				watchers.save(watcher);
+				watchers.signUpAndLogin(watcher.getUsername(), watcher.getPassword(), SecurityContextHolder.getContext());
 			} catch (DataIntegrityViolationException cve) {
 				model.addAttribute("error", "That username is already taken.");
 				return "users/form";
 			}
-	        UserDetails userDetails = watcherDetails.loadUserByUsername(watcher.getUsername());
-	        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, watcher.getPassword(), userDetails.getAuthorities());
-
-	        SecurityContextHolder.getContext().setAuthentication(token);
-            return "redirect:/";
+	        return "redirect:/";
 		}
 		
 		List<String> errors = result.getAllErrors().stream().map(e -> e.getArguments()[0].toString() + ": " + e.getDefaultMessage()).collect(Collectors.toList());

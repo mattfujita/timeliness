@@ -1,7 +1,6 @@
 package com.theironyard.timeliness.controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,22 +11,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.theironyard.timeliness.domain.Client;
 import com.theironyard.timeliness.domain.ClientRepository;
 import com.theironyard.timeliness.domain.TimeWatcher;
 import com.theironyard.timeliness.domain.TimeWatcherRepository;
 import com.theironyard.timeliness.domain.WorkSpan;
-import com.theironyard.timeliness.domain.WorkSpanContext;
+import com.theironyard.timeliness.domain.WorkSpanService;
 
 @Controller
 @RequestMapping({"/entries", "/"})
 public class TimeEntriesController {
 
-	private WorkSpanContext spans;
+	private WorkSpanService spans;
 	private TimeWatcherRepository watchers;
 	private ClientRepository clients;
 
-	public TimeEntriesController(WorkSpanContext spans, TimeWatcherRepository watchers, ClientRepository clients) {
+	public TimeEntriesController(WorkSpanService spans, TimeWatcherRepository watchers, ClientRepository clients) {
 		this.spans = spans;
 		this.watchers = watchers;
 		this.clients = clients;
@@ -37,13 +37,8 @@ public class TimeEntriesController {
 	public String getEntryForm(Authentication auth, Model model) {
 		TimeWatcher watcher = (TimeWatcher) auth.getPrincipal();
 		watcher = watchers.findOne(watcher.getId());
-		
-		Calendar c = Calendar.getInstance();
-		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 0, 0, 0);
-		Date fromTime = c.getTime();
-		c.add(Calendar.DATE, 1);
-		Date toTime = c.getTime();
-		List<WorkSpanViewModel> models = spans.findAllByWatcherAndFromTimeGreaterThanAndToTimeLessThanOrderByFromTime(watcher, fromTime, toTime)
+
+		List<WorkSpanViewModel> models = spans.findTodaysWorkSpansForTimeWatcher(watcher)
 				.stream()
 				.map(span -> new WorkSpanViewModel(span))
 				.collect(Collectors.toList());

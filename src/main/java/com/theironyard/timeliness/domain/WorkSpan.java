@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class WorkSpan {
 
@@ -16,6 +19,7 @@ public class WorkSpan {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	private TimeWatcher watcher;
 	
