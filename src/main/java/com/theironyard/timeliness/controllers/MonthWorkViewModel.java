@@ -9,7 +9,7 @@ import com.theironyard.timeliness.domain.WorkSpan;
 class MonthWorkViewModel {
 	
 	private Date month;
-	private long numberOfHours;
+	private long numberOfMinutes;
 	
 	public MonthWorkViewModel(Date month) {
 		this.month = month;
@@ -18,9 +18,7 @@ class MonthWorkViewModel {
 	public void add(WorkSpan span) {
 		if (span.getToTime() != null) {
 			long s = (span.getToTime().getTime() - span.getFromTime().getTime()) / 1000;
-			long m = s / 60 + 60;
-			m = m - m % 60;
-			numberOfHours += m / 60;
+			numberOfMinutes = s / 60;
 		}
 	}
 	
@@ -40,7 +38,7 @@ class MonthWorkViewModel {
 	}
 	
 	public long getNumberOfHoursWorked() {
-		return numberOfHours;
+		return numberOfMinutes / 60 + 1;
 	}
 	
 }

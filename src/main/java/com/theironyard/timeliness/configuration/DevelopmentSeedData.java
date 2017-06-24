@@ -47,24 +47,24 @@ public class DevelopmentSeedData {
 				c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), 10, 0, 0);
 
 				WorkSpan span = new WorkSpan(maria, zanzibar, c.getTime());
-				c.add(Calendar.MINUTE, 52 + j * i);
+				c.add(Calendar.MINUTE, 52 + j * j * i * i);
 				span.setToTime(c.getTime());
 				workSpans.save(span);
 				
-				c.add(Calendar.MINUTE, 12 + j * i);
-				span = new WorkSpan(maria, allies, c.getTime());
-				c.add(Calendar.MINUTE, 49);
-				span.setToTime(c.getTime());
-				workSpans.save(span);
-				
-				c.add(Calendar.MINUTE, 57 + j * i);
-				span = new WorkSpan(maria, zanzibar, c.getTime());
 				c.add(Calendar.MINUTE, 12);
+				span = new WorkSpan(maria, allies, c.getTime());
+				c.add(Calendar.MINUTE, 49 + j * j * i * i);
+				span.setToTime(c.getTime());
+				workSpans.save(span);
+				
+				c.add(Calendar.MINUTE, 57);
+				span = new WorkSpan(maria, zanzibar, c.getTime());
+				c.add(Calendar.MINUTE, 12 + j * j * i * i);
 				span.setToTime(c.getTime());
 				workSpans.save(span);
 
 				if (i == 0 && j == 0) {
-					c.add(Calendar.MINUTE, 4 + j * i);
+					c.add(Calendar.MINUTE, 4 + j * j * i * i);
 					span = new WorkSpan(maria, brets, c.getTime());
 					workSpans.save(span);
 				}
