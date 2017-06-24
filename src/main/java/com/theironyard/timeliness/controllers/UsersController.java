@@ -43,8 +43,8 @@ public class UsersController {
 		model.addAttribute("watcher", new TimeWatcher());
 		return "users/form";
 	}
-	
-	@PostMapping("/create")
+
+	@PostMapping("")
 	public String handleForm(@ModelAttribute("watcher") @Valid TimeWatcher watcher, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			watcher.setEncryptedPassword(encoder.encode(watcher.getPassword()));
