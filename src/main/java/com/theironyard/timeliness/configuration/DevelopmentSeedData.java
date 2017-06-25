@@ -36,7 +36,7 @@ public class DevelopmentSeedData {
 		TimeWatcher maria = watchers.save(new TimeWatcher("maria", encoder.encode("maria")));
 		watchers.save(new TimeWatcher("hector", encoder.encode("hector")));
 		
-		Client zanzibar = clients.save(new Client("Zanzibar Unlimited", maria));
+		Client zanzibar = clients.save(new Client("Zantina Unlimited", maria));
 		Client brets = clients.save(new Client("Bret's Refrigeration", maria));
 		Client allies = clients.save(new Client("Allie's Sweets", maria));
 		
