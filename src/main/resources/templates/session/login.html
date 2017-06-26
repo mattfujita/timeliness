@@ -21,18 +21,12 @@
       <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
     </form>
   </div>
-  <div class="card login-card">
-    <div class="card-content">
-      Not a user?
-    </div>
-    <div class="card-actions">
-      <a class="button button-primary" href="/users/new">Sign up!</a>
-    </div>
-  </div>
+  <registration-cta class="card login-card"></registration-cta>
   <script src="/js/angular-1.6.4.min.js"></script>
   <script src="/js/angular-resource-1.6.4.min.js"></script>
   <script src="/js/angular-ui-router-1.0.3.min.js"></script>
   <script src="/app/app.module.js"></script>
+  <script src="/app/registration-cta/registration-cta.component.js"></script>
 </body>
 
 </html>
