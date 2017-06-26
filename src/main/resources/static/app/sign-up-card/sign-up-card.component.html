@@ -1,12 +1,15 @@
-<form ng-submit="signUp.submitForm()">
-  <div class="card-art"></div>
-  <div class="card-content">
-    <h1>Sign up!</h1>
-    <div class="error-message">{{ signUp.error }}</div>
-    <input autofocus type="text" placeholder="username" name="username" ng-model="signUp.username">
-    <input type="password" placeholder="password" name="password" ng-model="signUp.password">
-  </div>
-  <div class="card-actions">
-    <button class="button-primary" ng-disabled="signUp.username.length === 0 || signUp.password.length === 0">Register!</button>
-  </div>
-</form>
+<div class="card login-card">
+  <form ng-submit="signUp.submitForm()">
+    <div class="card-art"></div>
+    <div class="card-content">
+      <h1>Sign up!</h1>
+      <div class="error-message">{{ signUp.error }}</div>
+      <input autofocus type="text" placeholder="username" name="username" ng-model="signUp.username">
+      <input type="password" placeholder="password" name="password" ng-model="signUp.password">
+    </div>
+    <div class="card-actions">
+      <a class="button" ui-sref="login">Cancel</a>
+      <button class="button-primary" ng-disabled="signUp.username.length === 0 || signUp.password.length === 0">Register!</button>
+    </div>
+  </form>
+</div>
