@@ -1,9 +1,9 @@
 class LoginCardController {
-  constructor($http, $window) {
+  constructor($http, $state) {
     this.username = '';
     this.password = '';
     this.$http = $http;
-    this.$window = $window;
+    this.$state = $state;
   }
 
   submitForm() {
@@ -14,7 +14,7 @@ class LoginCardController {
     this.$http
       .put('/api/session/mine', credentials)
       .then(() => {
-        this.$window.location.href = '/';
+        this.$state.go('main');
       })
       .catch(() => {
         this.error = 'Cannot login with that username and password';
@@ -29,7 +29,7 @@ angular
     controllerAs: 'login',
     controller: [
       '$http',
-      '$window',
-      ($http, $window) => new LoginCardController($http, $window)
+      '$state',
+      ($http, $state) => new LoginCardController($http, $state)
     ]
   });

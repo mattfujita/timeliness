@@ -1,9 +1,9 @@
 class SignUpCardController {
-  constructor($http, $window) {
+  constructor($http, $state) {
     this.username = '';
     this.password = '';
     this.$http = $http;
-    this.$window = $window;
+    this.$state = $state;
   }
   
   submitForm() {
@@ -14,7 +14,7 @@ class SignUpCardController {
       this.$http
         .post('/api/users', credentials)
         .then(() => {
-          this.$window.location.href = '/';
+          this.$state.go('main');
         })
         .catch(() => {
           this.error = 'Please select another username because that one is already being used';
@@ -29,7 +29,7 @@ angular
     controllerAs: 'signUp',
     controller: [
       '$http',
-      '$window',
-      ($http, $window) => new SignUpCardController($http, $window)
+      '$state',
+      ($http, $state) => new SignUpCardController($http, $state)
     ]
   });
