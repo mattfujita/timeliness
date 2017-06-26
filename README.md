@@ -1,23 +1,16 @@
-# Spring Slick Starter
+# Timeliness - An Angular Training Tool
 
-This project contains a Maven project that includes both the Angular 1 and Angular 2 clients.
+This project contains a Spring Boot project that you can use to learn AngularJS.
 
-## To use
+There are a bunch of tags that label each steps completion. That, in addition to the learning material, make it easy to instruct AngularJS to a group of students.
 
-Change the values in `application.yml` to choose to serve which version of the Angular clients to serve.
+## How to Run
 
-## Angular 2 Caveats
-
-### Developing
-You need two Terminal windows:
-
-1. One to develop in Angular 2, run `npm run serve` from `src/main/resources/angular2/ui/`
-   and open your browser to [http://localhost:4200](http://localhost:4200) which will serve
-   the application.
-1. One to run `mvn spring-boot:run` to run the Spring application from the
-   directory that has the `pom.xml` file in it.
-
-### Deploying
-Run `npm run build` from `src/main/resources/angular2/ui/` to populate the `templates` and
-`static` directories. Then, run `mvn spring-boot:run` from the directory with the `pom.xml`
-file to make sure everything works correctly.
+* Make sure you have PostgreSql installed. (macOS users with Homebrew can use `brew install postgresql`)
+* Create a PostgreSql role named "timely" with the password "timely". (You can use the command-line command `psql postgres -c "create role timely with login password 'timely'"`)
+* Create a PostgreSql database named "timely" owned by the "timely" role. (You can use the command-line command `psql postgres -c "create database timely with owner timely"`)
+* Make sure you have [maven](http://maven.apache.org/) installed. (macOS users with Homebrew can use `brew install maven`)
+* Make sure you have Java 8 or better installed. (macOS users with Homebrew can use `brew cask install java`)
+* In the directory into which you cloned this repository, run `mvn spring-boot:run`
+* Open your browser to [http://localhost:5000](http://localhost:5000)
+* Log in with maria/maria or hector/hector or register with your own username and password.
