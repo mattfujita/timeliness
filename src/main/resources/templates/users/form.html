@@ -6,25 +6,13 @@
   {{> common/head}}
 </head>
 
-<body>
-  <div class="card login-card">
-    <form method="post" action="/users">
-      <div class="card-art"></div>
-      <div class="card-content">
-        <h1>Sign up!</h1>
-        <div class="error-message">{{ error }}</div>
-        <input autofocus type="text" placeholder="username" name="username" value="{{ watcher.username }}">
-        <input type="password" placeholder="password" name="password">
-      </div>
-      <div class="card-actions">
-        <button class="button-primary">Register!</button>
-      </div>
-      <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
-    </form>
-  </div>
+<body ng-app="app">
+  <sign-up-card class="card login-card"></sign-up-card>
   <script src="/js/angular-1.6.4.min.js"></script>
   <script src="/js/angular-resource-1.6.4.min.js"></script>
   <script src="/js/angular-ui-router-1.0.3.min.js"></script>
+  <script src="/app/app.module.js"></script>
+  <script src="/app/sign-up-card/sign-up-card.component.js"></script>
 </body>
 
 </html>
