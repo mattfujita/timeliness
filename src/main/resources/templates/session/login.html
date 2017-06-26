@@ -7,26 +7,14 @@
 </head>
 
 <body ng-app="app">
-  <div class="card login-card">
-    <form method="post" action="/session/mine">
-      <div class="card-art"></div>
-      <div class="card-content">
-        <div>{{ error }}</div>
-        <input autofocus type="text" placeholder="username" name="username">
-        <input type="password" placeholder="password" name="password">
-      </div>
-      <div class="card-actions">
-        <button class="button-primary">Watch time</button>
-      </div>
-      <input type="hidden" name="{{ _csrf.parameterName }}" value="{{ _csrf.token }}">
-    </form>
-  </div>
+  <login-card class="card login-card"></login-card>
   <registration-cta class="card login-card"></registration-cta>
   <script src="/js/angular-1.6.4.min.js"></script>
   <script src="/js/angular-resource-1.6.4.min.js"></script>
   <script src="/js/angular-ui-router-1.0.3.min.js"></script>
   <script src="/app/app.module.js"></script>
   <script src="/app/registration-cta/registration-cta.component.js"></script>
+  <script src="/app/login-card/login-card.component.js"></script>
 </body>
 
 </html>

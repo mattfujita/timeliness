@@ -1,0 +1,11 @@
+<form ng-submit="login.submitForm()">
+  <div class="card-art"></div>
+  <div class="card-content">
+    <div>{{ login.error }}</div>
+    <input autofocus type="text" placeholder="username" ng-model="login.username">
+    <input type="password" placeholder="password" ng-model="login.password">
+  </div>
+  <div class="card-actions">
+    <button class="button-primary" ng-disabled="login.username.length === 0 || login.password.length === 0">Watch time</button>
+  </div>
+</form>
