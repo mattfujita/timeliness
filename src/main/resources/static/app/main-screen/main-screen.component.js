@@ -1,12 +1,12 @@
 class MainScreenController {
-  constructor($http, $state) {
-    this.$http = $http;
+  constructor(auth, $state) {
+    this.auth = auth;
     this.$state = $state;
   }
   
   logout() {
-    this.$http
-      .delete('/api/session/mine')
+    this.auth
+      .logout()
       .then(() => {
         this.$state.go('login');
       })
@@ -22,8 +22,8 @@ angular
     templateUrl: '/app/main-screen/main-screen.component.html',
     controllerAs: 'mainScreen',
     controller: [
-      '$http',
+      'authentication',
       '$state',
-      ($http, $state) => new MainScreenController($http, $state)
+      (auth, $state) => new MainScreenController(auth, $state)
     ]
   });

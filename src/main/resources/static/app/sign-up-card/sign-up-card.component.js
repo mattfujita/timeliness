@@ -1,24 +1,20 @@
 class SignUpCardController {
-  constructor($http, $state) {
+  constructor(auth, $state) {
     this.username = '';
     this.password = '';
-    this.$http = $http;
+    this.auth = auth;
     this.$state = $state;
   }
   
   submitForm() {
-    let credentials = {
-        username: this.username,
-        password: this.password
-      }
-      this.$http
-        .post('/api/users', credentials)
-        .then(() => {
-          this.$state.go('main');
-        })
-        .catch(() => {
-          this.error = 'Please select another username because that one is already being used';
-        });
+    this.auth
+      .register(this.username, this.password)
+      .then(() => {
+        this.$state.go('main');
+      })
+      .catch(() => {
+        this.error = 'Please select another username because that one is already being used';
+      });
   }
 }
 
@@ -28,8 +24,8 @@ angular
     templateUrl: '/app/sign-up-card/sign-up-card.component.html',
     controllerAs: 'signUp',
     controller: [
-      '$http',
+      'authentication',
       '$state',
-      ($http, $state) => new SignUpCardController($http, $state)
+      (auth, $state) => new SignUpCardController(auth, $state)
     ]
   });

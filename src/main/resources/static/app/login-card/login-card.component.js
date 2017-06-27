@@ -1,18 +1,14 @@
 class LoginCardController {
-  constructor($http, $state) {
+  constructor(auth, $state) {
     this.username = '';
     this.password = '';
-    this.$http = $http;
+    this.auth = auth;
     this.$state = $state;
   }
 
   submitForm() {
-    let credentials = {
-      username: this.username,
-      password: this.password
-    }
-    this.$http
-      .put('/api/session/mine', credentials)
+    this.auth
+      .login(this.username, this.password)
       .then(() => {
         this.$state.go('main');
       })
@@ -28,8 +24,8 @@ angular
     templateUrl: '/app/login-card/login-card.component.html',
     controllerAs: 'login',
     controller: [
-      '$http',
+      'authentication',
       '$state',
-      ($http, $state) => new LoginCardController($http, $state)
+      (auth, $state) => new LoginCardController(auth, $state)
     ]
   });
