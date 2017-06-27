@@ -10,7 +10,7 @@ class SignUpCardController {
     this.auth
       .register(this.username, this.password)
       .then(() => {
-        this.$state.go('main');
+        this.$state.go('main.entries');
       })
       .catch(() => {
         this.error = 'Please select another username because that one is already being used';

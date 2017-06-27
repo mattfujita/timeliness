@@ -10,7 +10,7 @@ class LoginCardController {
     this.auth
       .login(this.username, this.password)
       .then(() => {
-        this.$state.go('main');
+        this.$state.go('main.entries');
       })
       .catch(() => {
         this.error = 'Cannot login with that username and password';
