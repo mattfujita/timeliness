@@ -1,1 +1,34 @@
-<h1>Here be Report!</h1>
+<h1 ng-if="report.clients.length === 0" class="standalone-message">
+  You must first create some clients.
+</h1>
+<div ng-if="report.clients.length > 0">
+  <div class="single-row-chooser">
+    <div class="drop-down-holder single-row-chooser-main">
+      <div class="drop-down-decorator">
+        <i class="material-icons">arrow_drop_down</i>
+      </div>
+      <select class="full-width" name="id" id="clientId" required
+              ng-model="report.selectedClient"
+              ng-options="client.name for client in report.clients">
+        <option value=""></option>
+      </select>
+    </div>
+    <button ng-disabled="!report.selectedClient"
+            ng-click="report.generate()"
+            class="button">Generate report</button>
+  </div>
+  <table class="data-table" ng-if="report.data">
+    <thead>
+      <tr>
+        <th class="data-table-main-column">Month</th>
+        <th class="data-table-numeric">Hours worked</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in report.data">
+        <td class="data-table-main-column">{{ row.monthName }} {{ row.year }}</td>
+        <td class="data-table-numeric">{{ row.numberOfHoursWorked }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
