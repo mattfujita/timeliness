@@ -12,12 +12,12 @@ class TimeEntriesDataService {
   complete(id) {
     return this.$http
       .post('/api/entries/completions', { id })
-      .then(repsonse => response.data);
+      .then(repsonse => repsonse.data);
   }
   
   create(clientId) {
     return this.$http
-      .post('/api/entries', { client: { id } })
+      .post('/api/entries', { client: { id: clientId } })
       .then(response => response.data);
   }
 }

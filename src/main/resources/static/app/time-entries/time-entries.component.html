@@ -1,1 +1,61 @@
-<h1>Here be Time Entries!</h1>
+<h1 ng-if="timeEntries.clients.length === 0"
+    class="standalone-message">
+  You must first create some clients.
+</h1>
+<div ng-if="timeEntries.clients.length > 0">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th class="data-table-main-column">Client</th>
+        <th class="data-table-numeric">Start</th>
+        <th class="data-table-numeric">End</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in timeEntries.data">
+        <td class="data-table-main-column">
+          {{ row.client.name }}
+        </td>
+        <td class="data-table-numeric">
+          {{ row.fromTime | date:"h:mm a" }}
+        </td>
+
+        <td ng-if="row.toTime"
+            class="data-table-numeric">
+          {{ row.toTime | date:"h:mm a" }}
+        </td>
+        <td ng-if="!row.toTime"
+            class="data-table-numeric">
+          <button class="button-primary"
+                  ng-click="timeEntries.complete(row.id)">
+            Finish
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="data-table-main-column">
+          <div class="drop-down-holder">
+            <div class="drop-down-decorator">
+              <i class="material-icons">arrow_drop_down</i>
+            </div>
+            <select class="full-width"
+                    name="client.id"
+                    id="clientId"
+                    required
+                    ng-model="timeEntries.selectedClient"
+                    ng-options="client.name for client in timeEntries.clients">
+              <option value=""></option>
+            </select>
+          </div>
+        </td>
+        <td class="data-table-numeric">
+          <button ng-show="timeEntries.selectedClient"
+                  ng-click="timeEntries.createNewEntry()"
+                  class="button-cta">
+            Start
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
