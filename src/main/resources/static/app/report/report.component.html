@@ -3,16 +3,13 @@
 </h1>
 <div ng-if="report.clients.length > 0">
   <div class="single-row-chooser">
-    <div class="drop-down-holder single-row-chooser-main">
-      <div class="drop-down-decorator">
-        <i class="material-icons">arrow_drop_down</i>
-      </div>
+    <fancy-drop-down class="single-row-chooser-main">
       <select class="full-width" name="id" id="clientId" required
               ng-model="report.selectedClient"
               ng-options="client.name for client in report.clients">
         <option value=""></option>
       </select>
-    </div>
+    </fancy-drop-down>
     <button ng-disabled="!report.selectedClient"
             ng-click="report.generate()"
             class="button">Generate report</button>
