@@ -1,1 +1,15 @@
-<h1>Here be Clients!</h1>
+<a class="fab fab-right fab-overlap-up" href="/clients/new" ng-if="clientsList.isOnlyListState()">
+  <i class="material-icons">add</i>
+</a>
+<ul class="main-list list">
+  <li class="list-item list-item-two-line"
+      ng-repeat="client in clientsList.data">
+    <a ui-sref="main.clients.edit({ clientId: client.id })">
+      <div class="list-primary-content">{{ client.name }}</div>
+      <div class="list-secondary-content">
+        {{ client.isActive? 'Active' : 'Inactive' }}
+      </div>
+     </a>
+  </li>
+</ul>
+<ui-view class="main-detail"></ui-view>

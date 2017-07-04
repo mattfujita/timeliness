@@ -1,0 +1,28 @@
+<div class="main-detail">
+  <div class="main-detail-headline">
+    <div class="main-detail-headline-actions">
+      <a ui-sref="main.clients"><i class="material-icons">arrow_back</i></a>
+      <div class="app-bar-spacer"></div>
+      <div ng-if="form.data.id">
+        <button class="button-icon"
+                ng-click="form.deactivate(form.data.id)"
+                ng-if="form.data.isActive"><i class="material-icons">remove_circle</i></button>
+        <button class="button-icon"
+                ng-click="form.activate(form.data.id)"
+                ng-if="!form.data.isActive"><i class="material-icons">check_circle</i></button>
+      </div>
+    </div>
+    <h1 class="main-detail-headline-text" ng-if="form.data.id">Edit {{ form.data.name }}</h1>
+    <h1 class="main-detail-headline-text" ng-if="!form.data.id">Create a client</h1>
+  </div>
+  <div class="main-detail-content">
+    <div class="form-errors" ng-if="form.errors">{{ errors }}</div>
+    <form ng-submit="form.upsert()">
+      <label class="text-input">
+        <span>Client name</span>
+        <input autofocus type="text" name="name" ng-model="form.data.name">
+      </label>
+    </form>
+  </div>
+ </div>
+ 

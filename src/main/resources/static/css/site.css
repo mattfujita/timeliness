@@ -26,7 +26,7 @@ a {
   color: inherit;
 }
 
-main {
+main, clients-list {
   flex: 1 0 0px;
   position: relative;
   display: flex;
@@ -237,6 +237,10 @@ login-page, sign-up-card, .login-card {
   flex: 0 0 280px;
 }
 
+.main-detail:empty {
+  background-color: transparent;
+}
+
 .main-detail-content {
   padding: 16px 0 0 8px;
 }
@@ -377,8 +381,17 @@ th.data-table-numeric {
 }
 
 .full-sized {
+  flex: 1 0 0px;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
+}
+
+main-screen {
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-content: stretch;
 }

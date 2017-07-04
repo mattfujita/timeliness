@@ -7,6 +7,7 @@ class TimeEntriesController {
   $onInit() {
     this.clientsData
       .getAll()
+      .then(clients => clients.filter(c => c.isActive))
       .then(clients => this.clients = clients);
     this.timeEntriesData
       .getAll()
