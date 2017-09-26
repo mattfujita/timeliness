@@ -1,0 +1,44 @@
+/* Make the component look like a card with a shadow. */
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    align-self: center;
+    padding: 0 0 8px 0;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .24);
+    background-color: white;
+    margin-bottom: 8px;
+  }
+  
+  /* Make the form elements lay out horizontally. */
+  .form-line {
+    display: flex;
+  }
+  
+  /* Stretch the form elements all the way across. */
+  input {
+    flex: 1 0 0px;
+  }
+  
+  /* Put a background color behind the clock image. */
+  .figure {
+    background-color: #b3e5fc;
+  }
+  
+  /* Size the image to the card. */
+  .figure img {
+    width: 100%;
+  }
+  
+  /* Put some padding in the card. */
+  .content {
+    padding: 8px 16px;
+  }
+  
+  /* Put the button in the correct place. */
+  .actions {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  

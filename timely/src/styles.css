@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  /* A new background color for the app! */
+  background-color: #f5f5f5;
+}
+
+body, input, textarea, select, button {
+  font-family: 'Roboto', sans-serif;
+}
+
+body, button {
+  font-size: 14px;
+}
+
+input, textarea, select {
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1rem;
+}
+
+/* Make ALL of the buttons nice and flat. */
+button {
+  border: 0;
+  background-color: transparent;
+  text-transform: uppercase;
+  color: #ff6d00;
+}
+
+/* Have the button change colors when pressed. */
+button:active {
+  background-color: #eeeeee;
+}
+
+input::placeholder {
+  font-weight: 300;
+  color: rgba(0, 0, 0, .24);
+}
+
+input[type=text],
+input[type=password] {
+  border: 2px solid transparent;
+  border-bottom-color: #eeeeee;
+  padding: 8px 0 4px 0;
+  outline: 0;
+  background-color: transparent;
+  box-sizing: border-box;
+  height: 56px;
+  margin-bottom: 8px;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+  border-bottom-color: #ff6d00;
+}
+
