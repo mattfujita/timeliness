@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-card',
@@ -12,9 +13,9 @@ export class LoginCardComponent implements OnInit {
 
   private username = '';
   private password = '';
-  private error = '';
+  private error: string;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   ngOnInit() {
   }
@@ -43,7 +44,7 @@ export class LoginCardComponent implements OnInit {
         .subscribe(
           () => {
             this.error = '';
-            console.log('logged in');
+            this.router.navigate(['/main']);
           },
 
           e => {

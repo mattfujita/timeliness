@@ -16,11 +16,11 @@ body {
   background-color: #f5f5f5;
 }
 
-body, input, textarea, select, button {
+body, input, textarea, select, a.button, button {
   font-family: 'Roboto', sans-serif;
 }
 
-body, button {
+body, a.button, button {
   font-size: 14px;
 }
 
@@ -32,16 +32,18 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
 }
 
-/* Make ALL of the buttons nice and flat. */
+a.button, /* Hello, a tag */
 button {
   border: 0;
   background-color: transparent;
   text-transform: uppercase;
   color: #ff6d00;
+  padding: 4px 8px;  /* Padding for all button-y things */
+  text-decoration: none; /* No underlines for <a> tags */
 }
 
 /* Have the button change colors when pressed. */
-button:active {
+a.button, button:active {
   background-color: #eeeeee;
 }
 
@@ -67,3 +69,12 @@ input[type=password]:focus {
   border-bottom-color: #ff6d00;
 }
 
+a.button:hover, /* Hello, a tag */
+button:active {
+  background-color: #eeeeee;
+}
+
+a.button[disabled], /* Hello, a tag */
+button[disabled] {
+  color: #eeeeee;
+}

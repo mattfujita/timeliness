@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-card',
@@ -12,7 +13,7 @@ export class SignUpCardComponent implements OnInit {
   private password = '';
   private error = '';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   ngOnInit() {
   }
@@ -42,7 +43,7 @@ export class SignUpCardComponent implements OnInit {
         .subscribe(
           () => {
             this.error= '';
-            console.log('signed in');
+            this.router.navigate(['/main']);
           },
 
           e => {

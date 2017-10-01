@@ -1,0 +1,58 @@
+.app-bar {
+    height: 64px;
+    background-color: #12005e;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .app-bar button {
+    color: inherit;
+  }
+  
+  .app-bar form {
+    flex: 0 0 auto;
+  }
+  
+  .app-bar-title {
+    margin: 0 0 0 72px;
+    font-weight: 300;
+  }
+  
+  .app-bar-spacer {
+    flex: 1 0 0px;
+  }
+  
+  .tabs {
+    background-color: #4a148c;
+    color: white;
+  }
+  
+  .tabs-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+  
+  .tabs-item {
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid transparent;
+    display: flex;
+  }
+  
+  .tabs-item a {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 48px;
+    padding: 0 24px;
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+  }
+  
+  .tabs-item-selected {
+    border-bottom-color: #ffc400; 
+  }

@@ -1,6 +1,7 @@
-<h1>Sign up!</h1>
+<div class="figure"><img src="/assets/clock.png"></div>
 <div class="content">
-  <div class="error">{{error}}</div>
+  <div class="error">{{ error }}</div>
+  <h1 class="header">Sign up!</h1>
   <div class="form-line">
     <input type="text" placeholder="username" [(ngModel)]="username">
   </div>
@@ -10,7 +11,9 @@
 </div>
 <div class="actions">
 
+  <a routerLink="/login" class="button">Cancel</a>
+
   <button class="cta" [disabled]="disableButton"
-  (click)="submitSignup()">Submit</button>
+  (click)="submitSignup()">Register!</button>
 
 </div>
